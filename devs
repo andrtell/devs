@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+deps() { 
+    if ! type -p $1 &> /dev/null 
+    then
+        echo "'$1' must be installed to run this script."
+        exit 126
+    fi
+}
+
+deps "node"
+deps "inotifywatch"
+
+SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+
+node $SCRIPT_DIR/server.js ${1:-$(pwd)}
